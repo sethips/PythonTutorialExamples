@@ -30,18 +30,21 @@ try:
 except (ZeroDivisionError, ValueError) as err:
     print(err)
 
-#---------8.4. Raising Exceptions & 8.5. User-defined Exceptions----------
+#---------8.4. Raising Exceptions & 8.5. User-defined Exceptions & 9.8. Exceptions Are Classes Too ----------
 #Create a test exemption
 class TestError(Exception):
     def __init__(self, value):
         self.value = value
     def __str__(self):
         return repr(self.value)
+class TestError2(TestError):
+        def __str__(self):
+            return repr(self.value) + '2'
 
 #Call the exemption
 try:
     raise TestError("It Broke")
-except TestError as err:
+except (TestError2, TestError) as err:
     print("Error: " + str(err))
 
 #----8.6. Defining Clean-up Actions &8.7. Predefined Clean-up Actions------
@@ -53,6 +56,6 @@ finally:
     print("Clean Up")
 
 #using with and as
-with open("textfile.txt") as flie
+with open("textfile.txt") as file:
     print(file.read())
     
